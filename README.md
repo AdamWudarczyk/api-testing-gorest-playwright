@@ -12,7 +12,7 @@ This project demonstrates:
   | ID          | Test Description              |
   |-------------|-------------------------------|
   | API-USER-01 | Create new user (POST /users) |
-  | API-USER-02 | TBD                           |         
+  | API-USER-02 | Get user by ID (GET /users/{id}) |
   | API-USER-03 | TBD                           |
   | API-USER-04 | TBD                           |
 
@@ -21,16 +21,16 @@ This project demonstrates:
 api-testing-gorest-playwright/
 ├── tests/
 │ └── users/
-│ └── create-user.spec.js                                      # Example test: POST /users
+│ └── create-user.spec.js               # Example test: POST /users
 │
-├── utils/                                                     # Helper functions (TBD)
+├── utils/                              # Helper functions (TBD)
 │
-├── playwright.config.js                                       # Global Playwright configuration
-├── package.json                                               # Project dependencies & scripts
+├── playwright.config.js                # Global Playwright configuration
+├── package.json                        # Project dependencies & scripts
 ├── package-lock.json
-├── .gitignore                                                 # Ignored files (incl. .env)
-├── .env                                                       # Environment variables (NOT committed)
-└── README.md                                                  # Project documentation
+├── .gitignore                          # Ignored files (incl. .env)
+├── .env                                # Environment variables (NOT committed)
+└── README.md                           # Project documentation
 ```
 
 ## Prerequisites:
@@ -47,3 +47,11 @@ npm install
 npx playwright test
 ```
 
+## Allure Reports
+This project includes Allure reporting for API tests.
+Generate Allure report:
+
+```bash
+npm run allure:serve
+```
+The report will open automatically in the browser.
