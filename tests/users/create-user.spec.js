@@ -5,7 +5,7 @@ const TOKEN = process.env.GOREST_TOKEN;
 
 test.describe('GoREST API - Create User', () => {
 
-    test('POST /users → create a new user', async ({ request }) => {
+    test('API-USER-01 - POST /users → create a new user', async ({ request }) => {
         const response = await request.post(`${BASE_URL}/users`, {
             headers: {
                 Authorization: `Bearer ${TOKEN}`
