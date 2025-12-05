@@ -6,12 +6,15 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 
-#Idea
+# Idea
 .idea/
 
-#Node modules
+# Node modules
 .node_modules/
 
-
-# env
+# Env
 .env/
+
+# Allure reports
+allure-results/
+allure-report/
