@@ -9,19 +9,22 @@ This project demonstrates:
 - JavaScript (ES6)
 
 ## Endpoints covered:
-  | ID          | Test Description              |
-  |-------------|-------------------------------|
-  | API-USER-01 | Create new user (POST /users) |
-  | API-USER-02 | Get user by ID (GET /users/{id}) |
-  | API-USER-03 | TBD                           |
-  | API-USER-04 | TBD                           |
+  | ID          | Test Description                        |
+  |-------------|-----------------------------------------|
+  | API-USER-01 | Create new user (POST /users)           |
+  | API-USER-02 | Get user by ID (GET /users/{id})        |
+  | API-USER-03 | Update user (PUT /users/{id})           |
+  | API-USER-04 | Partial update user (PATCH /users/{id}) |
 
 ## Project Structure:
 ```
 api-testing-gorest-playwright/
 ├── tests/
 │ └── users/
-│ └── create-user.spec.js               # Example test: POST /users
+│ └── create-user.spec.js               # API-USER-01: Create user
+│ └── get-user.spec.js                  # API-USER-02: Get user by ID
+│ └── update-user.spec.js               # API-USER-03: Update user
+│ └── patch-user.spec.js                # API-USER-04: Partial update user
 │
 ├── utils/                              # Helper functions (TBD)
 │
@@ -34,15 +37,17 @@ api-testing-gorest-playwright/
 ```
 
 ## Prerequisites:
-**Environment Variables**/
-Create a .env file in the project root:
+**Environment Variables**\
+Create a .env file in the project root:\
 ```GOREST_TOKEN=your_api_token_here```
-(Ensure .env is excluded via .gitignore.)
+(Ensure .env is excluded via .gitignore.)\
 
 ## Run tests:
+Install dependencies:
 ```bash
 npm install
 ```
+Run tests:
 ```bash
 npx playwright test
 ```
@@ -55,3 +60,10 @@ Generate Allure report:
 npm run allure:serve
 ```
 The report will open automatically in the browser.
+
+
+## Swagger Documentation
+```bash
+swagger-ui-watcher openapi.yaml
+```
+Open to check documentation: http://localhost:8000
