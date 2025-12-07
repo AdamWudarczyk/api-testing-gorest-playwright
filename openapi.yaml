@@ -1,0 +1,12 @@
+openapi: 3.0.0
+info:
+  title: GoREST Users API - Test Documentation
+  version: 1.0.0
+  description: >
+    OpenAPI specification for the GoREST /users endpoints used in the API test project.
+    This documentation allows other testers to explore the API and create their own requests.
+servers:
+  - url: https://gorest.co.in/public/v2
+    description: GoREST public API
+
+paths: {}
