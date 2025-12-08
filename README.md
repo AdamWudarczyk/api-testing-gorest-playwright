@@ -28,6 +28,7 @@ api-testing-gorest-playwright/
 │ └── get-user.spec.js                  # API-USER-02: Get user by ID
 │ └── update-user.spec.js               # API-USER-03: Update user
 │ └── patch-user.spec.js                # API-USER-04: Partial update user
+│ └── delete-user.spec.js               # API-USER-05: Delete user
 │
 ├── utils/                              # Helper functions (TBD)
 │
