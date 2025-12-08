@@ -13,7 +13,8 @@ node_modules/
 .node_modules/
 
 # Env
-.env/
+.env
+*.env
 
 # Allure reports
 allure-results/
