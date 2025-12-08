@@ -11,7 +11,7 @@ test.describe('GoREST API - Create User', () => {
                 Authorization: `Bearer ${TOKEN}`
             },
             data: {
-                name: "Adam Tester1",
+                name: "Adam Tester",
                 gender: "male",
                 email: `adam_${Date.now()}@mail.com`,
                 status: "active"
@@ -23,6 +23,6 @@ test.describe('GoREST API - Create User', () => {
         const body = await response.json();
         expect(body).toHaveProperty("id");
         expect(body).toHaveProperty("email");
-        expect(body.name).toBe("Adam Tester1");
+        expect(body.name).toBe("Adam Tester");
     });
 });
