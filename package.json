@@ -6,7 +6,8 @@
   "scripts": {
     "allure:serve": "allure serve allure-results",
     "allure:generate": "allure generate allure-results --clean",
-    "allure:open": "allure open"
+    "allure:open": "allure open",
+    "test": "dotenv -e .env -- npx playwright test"
   },
   "private": true,
   "devDependencies": {

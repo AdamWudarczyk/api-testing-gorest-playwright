@@ -15,6 +15,9 @@ This project demonstrates:
   | API-USER-02 | Get user by ID (GET /users/{id})        |
   | API-USER-03 | Update user (PUT /users/{id})           |
   | API-USER-04 | Partial update user (PATCH /users/{id}) |
+  | API-USER-05 | Delete user (DELETE /users/{id}) |
+  
+
 
 ## Project Structure:
 ```
