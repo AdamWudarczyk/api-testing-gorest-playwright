@@ -28,6 +28,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Debug GOREST_TOKEN presence
+        run: |
+          if [ -z "$GOREST_TOKEN" ]; then
+            echo "GOREST_TOKEN is NOT set"
+            exit 1
+          else
+            echo "GOREST_TOKEN length: ${#GOREST_TOKEN}"
+          fi
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
