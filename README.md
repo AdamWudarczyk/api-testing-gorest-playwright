@@ -16,6 +16,11 @@ This project demonstrates:
   | API-USER-03 | Update user (PUT /users/{id})           |
   | API-USER-04 | Partial update user (PATCH /users/{id}) |
   | API-USER-05 | Delete user (DELETE /users/{id}) |
+  | API-USER-06 | Create user without token returns 401 (POST /users)    |
+  | API-USER-07 | Create user with duplicate email returns 422 (POST /users) |
+  | API-USER-08 | Get non-existing user returns 404 (GET /users/{id})     |
+  | API-USER-09 | Create user without email returns 422 (POST /users) |
+  | API-USER-10 | Get users list with pagination returns paginated results (GET /users) |
   
 
 
@@ -24,20 +29,26 @@ This project demonstrates:
 api-testing-gorest-playwright/
 ├── tests/
 │ └── users/
-│ └── create-user.spec.ts               # API-USER-01: Create user
-│ └── get-user.spec.ts                  # API-USER-02: Get user by ID
-│ └── update-user.spec.ts               # API-USER-03: Update user
-│ └── patch-user.spec.ts                # API-USER-04: Partial update user
-│ └── delete-user.spec.ts               # API-USER-05: Delete user
+│  ├── create-user.spec.ts                    # API-USER-01: Create user
+│  ├──  get-user.spec.ts                      # API-USER-02: Get user by ID
+│  ├── update-user.spec.ts                    # API-USER-03: Update user
+│  ├── patch-user.spec.ts                     # API-USER-04: Partial update user
+│  ├── delete-user.spec.ts                    # API-USER-05: Delete user
+│  ├── create-user-without-token.spec.ts      # API-USER-06: Create user without token
+│  ├── create-user-duplicate-email.spec.ts    # API-USER-07: Create user with duplicate email
+│  ├── get-non-existing-user.spec.ts          # API-USER-08: Get non-existing user
+│  ├── create-user-invalid-payload.spec.ts    # API-USER-09: Create user without email
+│  └── get-users-with-pagination.spec.ts      # API-USER-10: Get users list with pagination
 │
-├── utils/                              # Helper functions (TBD)
+├── helpers/                                  # Helper functions 
+│   └── env-check.ts                          # Environment variable validation
 │
-├── playwright.config.ts                # Global Playwright configuration
-├── package.json                        # Project dependencies & scripts
-├── package-lock.json
-├── .gitignore                          # Ignored files (incl. .env)
-├── .env                                # Environment variables (NOT committed)
-└── README.md                           # Project documentation
+├── playwright.config.ts                      # Global Playwright configuration
+├── package.json                              # Project dependencies & scripts
+├── package-lock.json                         # Locked dependency versions
+├── .gitignore                                # Ignored files (incl. .env)
+├── .env                                      # Environment variables (NOT committed)
+└── README.md                                 # Project documentation
 ```
 
 ## Prerequisites:
