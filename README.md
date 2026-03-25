@@ -24,15 +24,15 @@ This project demonstrates:
 api-testing-gorest-playwright/
 ├── tests/
 │ └── users/
-│ └── create-user.spec.js               # API-USER-01: Create user
-│ └── get-user.spec.js                  # API-USER-02: Get user by ID
-│ └── update-user.spec.js               # API-USER-03: Update user
-│ └── patch-user.spec.js                # API-USER-04: Partial update user
-│ └── delete-user.spec.js               # API-USER-05: Delete user
+│ └── create-user.spec.ts               # API-USER-01: Create user
+│ └── get-user.spec.ts                  # API-USER-02: Get user by ID
+│ └── update-user.spec.ts               # API-USER-03: Update user
+│ └── patch-user.spec.ts                # API-USER-04: Partial update user
+│ └── delete-user.spec.ts               # API-USER-05: Delete user
 │
 ├── utils/                              # Helper functions (TBD)
 │
-├── playwright.config.js                # Global Playwright configuration
+├── playwright.config.ts                # Global Playwright configuration
 ├── package.json                        # Project dependencies & scripts
 ├── package-lock.json
 ├── .gitignore                          # Ignored files (incl. .env)
