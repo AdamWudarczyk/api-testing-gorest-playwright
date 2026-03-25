@@ -9,36 +9,9 @@ servers:
   - url: https://gorest.co.in/public/v2
     description: GoREST public API
 
-paths:
-  /users:
-    post:
-      summary: Create a new user
-      description: Creates a new user in the GoREST system.
-      tags:
-        - Users
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NewUser'
-            example:
-              name: "Adam Tester"
-              gender: "male"
-              email: "adam_tester@example.com"
-              status: "active"
-      responses:
-        '201':
-          description: User created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '422':
-          description: Validation error
-
+tags:
+  - name: Users
+    description: User management endpoints covered by automated API tests
 
 components:
   securitySchemes:
@@ -58,15 +31,20 @@ components:
       properties:
         name:
           type: string
+          example: Adam Tester
         gender:
           type: string
           enum: [male, female]
+          example: male
         email:
           type: string
           format: email
+          example: adam.tester@mail.com
         status:
           type: string
           enum: [active, inactive]
+          example: active
+
 
     User:
       allOf:
@@ -76,3 +54,298 @@ components:
             id:
               type: integer
               format: int64
+
+    UpdateUser:
+      type: object
+      required:
+        - name
+        - gender
+        - email
+        - status
+      properties:
+        name:
+          type: string
+          example: Updated User Name
+        gender:
+          type: string
+          enum: [male, female]
+          example: male
+        email:
+          type: string
+          format: email
+          example: updated.user@mail.com
+        status:
+          type: string
+          enum: [active, inactive]
+          example: inactive
+
+    PatchUser:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Patched User Name
+        gender:
+          type: string
+          enum: [male, female]
+          example: female
+        email:
+          type: string
+          format: email
+          example: patched.user@mail.com
+        status:
+          type: string
+          enum: [active, inactive]
+          example: inactive
+
+    ValidationError:
+      type: object
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          example: email
+        message:
+          type: string
+          example: has already been taken
+
+    UnauthorizedError:
+      type: array
+      items:
+        type: object
+        properties:
+          message:
+            type: string
+            example: Authentication failed
+
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create new user
+      description: Creates a new user with valid unique email and authorization token.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+            examples:
+              validRequest:
+                summary: Valid user payload
+                value:
+                  name: Adam Tester
+                  gender: male
+                  email: adam.tester@mail.com
+                  status: active
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                createdUser:
+                  summary: Successful create response
+                  value:
+                    id: 1234567
+                    name: Adam Tester
+                    gender: male
+                    email: adam.tester@mail.com
+                    status: active
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '422':
+          description: Validation error, for example duplicate email or missing field
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValidationError'
+              examples:
+                duplicateEmail:
+                  summary: Duplicate email validation error
+                  value:
+                    - field: email
+                      message: has already been taken
+                missingEmail:
+                  summary: Missing email validation error
+                  value:
+                    - field: email
+                      message: can't be blank
+
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get user by ID
+      description: Returns user details for the specified user ID.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: User ID
+          schema:
+            type: integer
+            example: 1234567
+      responses:
+        '200':
+          description: User returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                existingUser:
+                  value:
+                    id: 1234567
+                    name: Adam Tester
+                    gender: male
+                    email: adam.tester@mail.com
+                    status: active
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: User not found
+
+    put:
+      tags:
+        - Users
+      summary: Update user
+      description: Replaces the full user resource with updated data.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1234567
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+            examples:
+              updateRequest:
+                value:
+                  name: Updated User Name
+                  gender: male
+                  email: updated.user@mail.com
+                  status: inactive
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: User not found
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValidationError'
+
+    patch:
+      tags:
+        - Users
+      summary: Partially update user
+      description: Updates only selected user fields.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1234567
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchUser'
+            examples:
+              partialUpdate:
+                value:
+                  status: inactive
+      responses:
+        '200':
+          description: User partially updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: User not found
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValidationError'
+
+    delete:
+      tags:
+        - Users
+      summary: Delete user
+      description: Deletes the specified user.
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1234567
+      responses:
+        '204':
+          description: User deleted successfully
+        '401':
+          description: Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '404':
+          description: User not found
