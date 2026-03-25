@@ -1,12 +1,19 @@
 # GoREST API – Playwright Automated Tests
-A complete API automation framework for the GoREST public REST API.
+An automated API testing project for the GoREST public REST API, built with Playwright and TypeScript.
 
-This project demonstrates:
-1) CRUD testing
+This project covers:
+- CRUD operations for `/users`
+- negative test scenarios
+- authentication and validation checks
+- pagination testing
+- CI execution and reporting
 
 ## Tech Stack:
 - Playwright (API Testing)
-- JavaScript (ES6)
+- Typescript
+- OpenAPI / Swagger
+- Allure
+- GitHub Actions
 
 ## Endpoints covered:
   | ID          | Test Description                        |
